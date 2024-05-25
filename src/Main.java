@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
-
+/*
     public static List<Integer> crearRondaOias(int oias) {
         List<Integer> rondaOias = new LinkedList<>();
         for (int i = 1; i <= oias; i++) {
@@ -44,6 +44,7 @@ public class Main {
             }
         }
     }
+*/
 
     public static void main(String[] args) throws IOException {
         Archivo arch = new Archivo("aventureros.in");
@@ -54,6 +55,7 @@ public class Main {
         // Lista para mantener el orden de eliminación
         List<Integer> eliminated = new LinkedList<>();
 
+        /*
         // Proceso de eliminación
         int position = 0;
         for (int i = 0; i < N - 1; i++) { //Esto es N
@@ -72,7 +74,7 @@ public class Main {
         pw.println();
         pw.println(members.get(0));
         pw.close();
-/*
+
         // Leer el array 'a'
         int[] a = new int[N - 1];
         for (int i = 0; i < N - 1; i++) {
@@ -86,7 +88,8 @@ public class Main {
         
         List<Integer> rondaOias = crearRondaOias(N);
         Integer cebador = identificadorCebador("aventureros.out", N, a, rondaOias);
+        */
     }
-*/
+
 
 }
