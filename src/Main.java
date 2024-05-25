@@ -1,3 +1,5 @@
+import Clases.Archivo;
+
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -5,22 +7,20 @@ import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        // Abro el archivo de entrada
-        BufferedReader reader = new BufferedReader(new FileReader("aventureros.in"));
-        StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
+        Archivo arch = new Archivo("aventureros.in");
 
         // Leer el número N
-        int N = Integer.parseInt(tokenizer.nextToken());
+        int N = Integer.parseInt(arch.getTokenizer().nextToken());
 
         // Leer el array 'a'
         int[] a = new int[N - 1];
         for (int i = 0; i < N - 1; i++) {
-            if (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+            if (!arch.getTokenizer().hasMoreTokens()) {
+                arch.setTokenizer(new StringTokenizer(arch.getReader().readLine()));
             }
-            a[i] = Integer.parseInt(tokenizer.nextToken());
+            a[i] = Integer.parseInt(arch.getTokenizer().nextToken());
         }
-        reader.close();
+        arch.getReader().close();
 
         // Crear la lista de miembros
         List<Integer> members = new LinkedList<>();
