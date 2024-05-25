@@ -6,31 +6,6 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 public class Archivo {
-    // Abro el archivo de entrada
-/*/    private BufferedReader reader;
-    private StringTokenizer tokenizer;
-
-    public Archivo(String nombreArchivo) throws IOException {
-        this.reader = new BufferedReader(new FileReader(nombreArchivo));
-        this.tokenizer = new StringTokenizer(reader.readLine());
-    }
-
-    public BufferedReader getReader() {
-        return reader;
-    }
-
-    public void setReader(BufferedReader reader) {
-        this.reader = reader;
-    }
-
-    public StringTokenizer getTokenizer() {
-        return tokenizer;
-    }
-
-    public void setTokenizer(StringTokenizer tokenizer) {
-        this.tokenizer = tokenizer;
-    }*/
-
     private BufferedReader reader;
     private StringTokenizer tokenizer;
 
@@ -38,6 +13,9 @@ public class Archivo {
         this.reader = new BufferedReader(new FileReader(nombreArchivo));
         this.tokenizer = new StringTokenizer(reader.readLine());
     }
+
+    //TO-DO: Abrir archivo de escritura (o agregar otro constructor)
+    //To-DO2: Escribir en archivo
 
     public int leerEntero() throws IOException {
         if (!tokenizer.hasMoreTokens()) {
@@ -57,14 +35,13 @@ public class Archivo {
         return arreglo;
     }
 
-    public void cerrar() throws IOException {
-        reader.close();
-    }
-
     public void leerDatos(Aventurero aventurero) throws IOException {
         int cantidadOias = leerEntero();
         aventurero.setCantidadOias(cantidadOias);
         aventurero.setPasadas(leerArreglo(cantidadOias - 1));
     }
 
+    public void cerrar() throws IOException {
+        reader.close();
+    }
 }
