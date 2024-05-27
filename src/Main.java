@@ -1,10 +1,6 @@
 import Clases.Archivo;
 import Clases.Aventurero;
-
 import java.io.*;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.StringTokenizer;
 
 public class Main {
 

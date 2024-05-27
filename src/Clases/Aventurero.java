@@ -1,9 +1,5 @@
 package Clases;
-import Clases.Archivo;
-
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
