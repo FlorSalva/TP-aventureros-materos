@@ -58,7 +58,7 @@ public class Archivo {
             }
             int enteroleido = Integer.parseInt(tokenizer.nextToken());
             if (enteroleido < 0 || enteroleido > 100000000){
-                throw new RuntimeException("Entero leido está por fuera del rango (0 < n < 100000000).")
+                throw new RuntimeException("Entero leido está por fuera del rango (0 < n < 100000000).");
             }
             arreglo[i] = enteroleido;
         }
