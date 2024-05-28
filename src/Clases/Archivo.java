@@ -12,8 +12,6 @@ public class Archivo {
     private BufferedWriter writer;
     private StringTokenizer tokenizer;
 
-    //
-
     /**
      * Constructor de archivo especificando tipo de apertura
      * @param nombreArchivo El nombre del archivo a abrir
@@ -30,7 +28,6 @@ public class Archivo {
 
     }
 
-
     /**
      * Método para leer el primer elemento del archivo (entero)
      * @return Entero que representa la cantidad de OIAs
@@ -41,7 +38,7 @@ public class Archivo {
             tokenizer = new StringTokenizer(reader.readLine());
         }
         Integer primerEntero = Integer.parseInt(tokenizer.nextToken());
-        if (primerEntero < 1 || primerEntero > 400.000){
+        if (primerEntero < 1 || primerEntero > 400000){
             throw new RuntimeException("El primer entero del archivo está por fuera del rango permitido. (1 < n < 400.000).");
         }
         return primerEntero;
@@ -59,7 +56,11 @@ public class Archivo {
             if (!tokenizer.hasMoreTokens()) {
                 tokenizer = new StringTokenizer(reader.readLine());
             }
-            arreglo[i] = Integer.parseInt(tokenizer.nextToken());
+            int enteroleido = Integer.parseInt(tokenizer.nextToken());
+            if (enteroleido < 0 || enteroleido > 100000000){
+                throw new RuntimeException("Entero leido está por fuera del rango (0 < n < 100000000).")
+            }
+            arreglo[i] = enteroleido;
         }
         return arreglo;
     }
