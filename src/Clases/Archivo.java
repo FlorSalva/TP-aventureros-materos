@@ -12,27 +12,48 @@ public class Archivo {
     private BufferedWriter writer;
     private StringTokenizer tokenizer;
 
-    // Constructor para leer desde un archivo de entrada
-    public Archivo(String nombreArchivo) throws IOException {
-        this.reader = new BufferedReader(new FileReader(nombreArchivo));
-        this.tokenizer = new StringTokenizer(reader.readLine());
+    //
+
+    /**
+     * Constructor de archivo especificando tipo de apertura
+     * @param nombreArchivo El nombre del archivo a abrir
+     * @param tipoAperturaArchivo Tipo de apertura a realizar (LECTURA, ESCRITURA)
+     * @throws IOException
+     */
+    public Archivo(String nombreArchivo, TipoAperturaArchivo tipoAperturaArchivo) throws IOException {
+        if (TipoAperturaArchivo.LECTURA.equals(tipoAperturaArchivo)){
+            this.reader = new BufferedReader(new FileReader(nombreArchivo));
+            this.tokenizer = new StringTokenizer(reader.readLine());
+        } else {
+            this.writer = new BufferedWriter(new FileWriter(nombreArchivo));
+        }
+
     }
 
-    // Constructor para escribir en un archivo de salida
-    public Archivo(String nombreArchivo, boolean escribir) throws IOException {
-        this.writer = new BufferedWriter(new FileWriter(nombreArchivo));
-    }
 
-    //Método para leer entero
-    public int leerEntero() throws IOException {
+    /**
+     * Método para leer el primer elemento del archivo (entero)
+     * @return Entero que representa la cantidad de OIAs
+     * @throws IOException
+     */
+    private int leerEntero() throws IOException {
         if (!tokenizer.hasMoreTokens()) {
             tokenizer = new StringTokenizer(reader.readLine());
         }
-        return Integer.parseInt(tokenizer.nextToken());
+        Integer primerEntero = Integer.parseInt(tokenizer.nextToken());
+        if (primerEntero < 1 || primerEntero > 400.000){
+            throw new RuntimeException("El primer entero del archivo está por fuera del rango permitido. (1 < n < 400.000).");
+        }
+        return primerEntero;
     }
 
-    //Método para leer arreglo de enteros
-    public int[] leerArreglo(int n) throws IOException {
+    /**
+     * Método para leer arreglo de enteros
+     * @param n Cantidad de elementos del arreglo
+     * @return Arreglo leído
+     * @throws IOException
+     */
+    private int[] leerArreglo(int n) throws IOException {
         int[] arreglo = new int[n];
         for (int i = 0; i < n; i++) {
             if (!tokenizer.hasMoreTokens()) {
@@ -43,14 +64,23 @@ public class Archivo {
         return arreglo;
     }
 
-    //Método para setear los datos extraidos del archivo en aventureros
+    /**
+     * Método para setear los datos extraidos del archivo en aventureros
+     * @param aventurero Objeto Aventurero en el que se setearán los datos de la siguiente lectura
+     * @throws IOException
+     */
     public void leerDatos(Aventurero aventurero) throws IOException {
         int cantidadOias = leerEntero();
         aventurero.setCantidadOias(cantidadOias);
         aventurero.setPasadas(leerArreglo(cantidadOias - 1));
     }
 
-    // Método para escribir un OIA en el archivo de salida
+    /**
+     * Método para escribir un OIA en el archivo de salida
+     * @param oia
+     * @param esCebador
+     * @throws IOException
+     */
     public void escribirOia(int oia, boolean esCebador) throws IOException {
         if (writer == null) {
             throw new IOException("El archivo no está abierto para escritura.");
@@ -61,12 +91,42 @@ public class Archivo {
         writer.write(oia + " ");
     }
 
-    // Método para cerrar el archivo
+    /**
+     * Método para cerrar el archivo
+     * @throws IOException
+     */
     public void cerrar() throws IOException {
         if (reader != null)
             reader.close();
         if (writer != null)
             writer.close();
+    }
+
+    /**
+     * Método para validar si el archivo de entrada existe y es legible
+     * @param nombreArchivo
+     * @return
+     */
+    public static boolean validarArchivoLectura(String nombreArchivo) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
+            return reader.readLine() != null;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Método para validar si el archivo de salida puede ser creado y escrito
+     * @param nombreArchivo
+     * @return
+     */
+    public static boolean validarArchivoEscritura(String nombreArchivo) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
+            writer.write("");
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
 }
