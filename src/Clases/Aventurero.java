@@ -38,6 +38,11 @@ public class Aventurero {
         }
     }
 
+    //Para testing
+    public List<Integer> getListaOias() {
+        return listaOias;
+    }
+
     // public int identificadorCebador(String output)
     // {
     // PrintWriter pw = null;
