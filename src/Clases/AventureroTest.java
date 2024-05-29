@@ -40,13 +40,9 @@ public class AventureroTest {
         aventurero.setPasadas(new int[]{1, 2, 3, 4});
         aventurero.crearRondaOias();
 
-        Archivo archivo = new Archivo(OUTPUT_FILE, true);
-        int cebador = aventurero.identificadorCebador(archivo);
+        Archivo archivo = new Archivo(OUTPUT_FILE, TipoAperturaArchivo.ESCRITURA);
+        aventurero.identificadorCebador(archivo);
         archivo.cerrar();
-
-        // Verifico el cebador
-        int cebadorEsperado = 4;
-        assertEquals(cebadorEsperado, cebador);
 
         // Verifico el contenido del archivo de salida
         BufferedReader reader = new BufferedReader(new FileReader(OUTPUT_FILE));

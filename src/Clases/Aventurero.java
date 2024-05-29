@@ -34,6 +34,11 @@ public class Aventurero {
         }
     }
 
+    //Para testing
+    public List<Integer> getListaOias() {
+        return listaOias;
+    }
+
     public void identificadorCebador(Archivo arch) throws IOException{
             int position = 0;
             int removed;
