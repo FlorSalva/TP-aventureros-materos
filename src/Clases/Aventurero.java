@@ -1,9 +1,5 @@
 package Clases;
-import Clases.Archivo;
-
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,62 +28,21 @@ public class Aventurero {
         return this.cantidadOias;
     }
 
-    public void crearRondaOias() {
+    public void crearRondaOias(){
         for (int i = 1; i <= cantidadOias; i++) {
             listaOias.add(i);
         }
     }
 
-    //Para testing
-    public List<Integer> getListaOias() {
-        return listaOias;
-    }
-
-    // public int identificadorCebador(String output)
-    // {
-    // PrintWriter pw = null;
-    // try {
-    // pw = new PrintWriter(new FileWriter(output));
-    // int position = 0;
-    // for (int i = 0; i < cantidadOias - 1; i++) {
-    // position = (position + pasadas[i]) % listaOias.size();
-    // int removed = listaOias.remove(position);
-    // //escribirOia(pw,removed)
-    // pw.print(removed); //escribirOia
-    // pw.print(" "); //escribirOia
-    // }
-    // int removed = listaOias.remove(0);
-    // //escribirCebador(pw,removed)
-    // pw.println(); //escribirCebador
-    // pw.println(removed); //escribirCebador
-
-    // return removed;
-    // }catch(IOException e) {
-    // e.printStackTrace();
-    // return -1;
-    // }finally {
-    // if(pw != null){
-    // pw.close();
-    // }
-    // }
-    // }
-
-    public int identificadorCebador(Archivo pw) throws IOException
-    {
-
+    public void identificadorCebador(Archivo arch) throws IOException{
             int position = 0;
+            int removed;
             for (int i = 0; i < cantidadOias - 1; i++) {
                 position = (position + pasadas[i]) % listaOias.size();
-                int removed = listaOias.remove(position);
-                pw.escribirOia(removed, false);
-                //pw.print(removed);	//escribirOia
-                //pw.print(" ");		//escribirOia
+                removed = listaOias.remove(position);
+                arch.escribirOia(removed, false);
             }
-            int removed = listaOias.remove(0);
-            pw.escribirOia(removed, true);
-            //pw.println();			//escribirCebador
-            //pw.println(removed);	//escribirCebador
-
-            return removed;
+            removed = listaOias.remove(0);
+            arch.escribirOia(removed, true);
     }
 }
