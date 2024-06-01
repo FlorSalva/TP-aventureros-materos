@@ -25,7 +25,6 @@ public class Archivo {
         } else {
             this.writer = new BufferedWriter(new FileWriter(nombreArchivo));
         }
-
     }
 
     /**
