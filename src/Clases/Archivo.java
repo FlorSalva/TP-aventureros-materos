@@ -1,10 +1,8 @@
 package Clases;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import Excepciones.AventureroExcepcion;
+
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class Archivo {
@@ -19,11 +17,15 @@ public class Archivo {
      * @throws IOException
      */
     public Archivo(String nombreArchivo, TipoAperturaArchivo tipoAperturaArchivo) throws IOException {
-        if (TipoAperturaArchivo.LECTURA.equals(tipoAperturaArchivo)){
-            this.reader = new BufferedReader(new FileReader(nombreArchivo));
-            this.tokenizer = new StringTokenizer(reader.readLine());
-        } else {
-            this.writer = new BufferedWriter(new FileWriter(nombreArchivo));
+        try {
+            if (TipoAperturaArchivo.LECTURA.equals(tipoAperturaArchivo)){
+                this.reader = new BufferedReader(new FileReader(nombreArchivo));
+                this.tokenizer = new StringTokenizer(reader.readLine());
+            } else {
+                this.writer = new BufferedWriter(new FileWriter(nombreArchivo));
+            }
+        } catch (Exception e) {
+
         }
     }
 
@@ -33,14 +35,26 @@ public class Archivo {
      * @throws IOException
      */
     private int leerEntero() throws IOException {
-        if (!tokenizer.hasMoreTokens()) {
-            tokenizer = new StringTokenizer(reader.readLine());
+        try {
+            if(tokenizer != null) {
+                if (!tokenizer.hasMoreTokens()) {
+                    tokenizer = new StringTokenizer(reader.readLine());
+                }
+            } else {
+                throw new AventureroExcepcion("La cantidad de OIAs es requerida.") ;
+            }
+
+            Integer primerEntero = Integer.parseInt(tokenizer.nextToken());
+            if (primerEntero < 1 || primerEntero > 400000) {
+                throw new AventureroExcepcion("El primer entero del archivo está por fuera del rango permitido. (1 < n < 400.000).");
+            }
+            if (tokenizer.countTokens() > 1) {
+                throw new AventureroExcepcion("La cantidad de OIAs debe ser unica.");
+            }
+            return primerEntero;
+        } catch(Exception e) {
+            throw new AventureroExcepcion(e.getMessage());
         }
-        Integer primerEntero = Integer.parseInt(tokenizer.nextToken());
-        if (primerEntero < 1 || primerEntero > 400000){
-            throw new RuntimeException("El primer entero del archivo está por fuera del rango permitido. (1 < n < 400.000).");
-        }
-        return primerEntero;
     }
 
     /**
@@ -51,17 +65,29 @@ public class Archivo {
      */
     private int[] leerArreglo(int n) throws IOException {
         int[] arreglo = new int[n];
+
+        validarDatosDePasadas(n);
+
         for (int i = 0; i < n; i++) {
-            if (!tokenizer.hasMoreTokens()) {
-                tokenizer = new StringTokenizer(reader.readLine());
+            int enteroLeido = Integer.parseInt(tokenizer.nextToken());
+            if (enteroLeido < 0 || enteroLeido > 100000000){
+                throw new AventureroExcepcion("Entero leido está por fuera del rango (0 < n < 100000000).");
             }
-            int enteroleido = Integer.parseInt(tokenizer.nextToken());
-            if (enteroleido < 0 || enteroleido > 100000000){
-                throw new RuntimeException("Entero leido está por fuera del rango (0 < n < 100000000).");
-            }
-            arreglo[i] = enteroleido;
+            arreglo[i] = enteroLeido;
         }
         return arreglo;
+    }
+
+    private void validarDatosDePasadas(int n) throws IOException {
+        try {
+            tokenizer = new StringTokenizer(reader.readLine());
+        } catch (Exception e) {
+            throw new AventureroExcepcion("La cantidad de pasadas es requerida, se interrumpe la ejecución.");
+        }
+
+        if(n != tokenizer.countTokens()) {
+            throw new AventureroExcepcion("La cantidad de pasadas debe ser un elemento menos de la cantidad de OIAs, se interrumpe la ejecucion.");
+        }
     }
 
     /**
