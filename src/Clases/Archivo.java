@@ -25,7 +25,7 @@ public class Archivo {
                 this.writer = new BufferedWriter(new FileWriter(nombreArchivo));
             }
         } catch (Exception e) {
-
+            throw new AventureroExcepcion("Error al arbrir el archivo. " + e.getMessage());
         }
     }
 
