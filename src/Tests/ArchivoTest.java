@@ -1,6 +1,10 @@
-package Clases;
+package Tests;
 
 import static org.junit.Assert.*;
+
+import Clases.Archivo;
+import Clases.Aventurero;
+import Clases.TipoAperturaArchivo;
 import org.junit.Test;
 
 import java.io.*;

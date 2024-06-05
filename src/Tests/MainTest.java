@@ -1,5 +1,8 @@
+package Tests;
+
 import static org.junit.Assert.*;
 
+import com.sun.tools.javac.Main;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +22,7 @@ public class MainTest {
     }
 
     @Test
-    public void testMain() throws IOException {
+    public void testMain() throws Exception {
         // Ejecuto el método main
         Main.main(new String[]{});
 
