@@ -40,8 +40,8 @@ public class Aventurero {
     }
 
     public void identificadorCebador(Archivo arch) throws IOException{
-            int position = 0;
-            int removed;
+            int position = 0,
+                removed;
             for (int i = 0; i < cantidadOias - 1; i++) {
                 position = (position + pasadas[i]) % listaOias.size();
                 removed = listaOias.remove(position);
