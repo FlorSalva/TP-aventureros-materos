@@ -5,16 +5,20 @@ import static org.junit.Assert.*;
 import Clases.Archivo;
 import Clases.Aventurero;
 import Clases.TipoAperturaArchivo;
+import Excepciones.AventureroExcepcion;
 import org.junit.Test;
 
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class ArchivoTest {
     private static final String TEST_DIR = "./resources/test/";
-    private static final String INPUT_FILE = TEST_DIR + "aventureros_test.in";
-    private static final String OUTPUT_FILE = TEST_DIR + "aventureros_test.out";
+    private static final String INPUT_FILE_1 = TEST_DIR + "aventureros_test_1.in";
+    private static final String INPUT_FILE_2 = TEST_DIR + "aventureros_test_2.in";
+    private static final String INPUT_FILE_3 = TEST_DIR + "aventureros_test_3.in";
+    private static final String INPUT_FILE_4 = TEST_DIR + "aventureros_test_4.in";
+    private static final String INPUT_FILE_5 = TEST_DIR + "aventureros_test_5.in";
+    private static final String OUTPUT_FILE_1 = TEST_DIR + "aventureros_test_1.out";
 
     @Test
     public void testLeerEntero() throws Exception {
@@ -22,14 +26,14 @@ public class ArchivoTest {
         Method metodo = Archivo.class.getDeclaredMethod("leerEntero");
         metodo.setAccessible(true);
 
-        Archivo archivo = new Archivo(INPUT_FILE, TipoAperturaArchivo.LECTURA);
+        Archivo archivo = new Archivo(INPUT_FILE_1, TipoAperturaArchivo.LECTURA);
         int result = (int) metodo.invoke(archivo);
         assertEquals(5, result);
     }
 
     @Test
     public void testLeerArreglo() throws Exception {
-        Archivo archivo = new Archivo(INPUT_FILE, TipoAperturaArchivo.LECTURA);
+        Archivo archivo = new Archivo(INPUT_FILE_1, TipoAperturaArchivo.LECTURA);
         Method leerEnteroMetodo = Archivo.class.getDeclaredMethod("leerEntero");
         leerEnteroMetodo.setAccessible(true);
         int cantidadOias = (int) leerEnteroMetodo.invoke(archivo);
@@ -44,7 +48,7 @@ public class ArchivoTest {
 
     @Test
     public void testLeerDatos() throws IOException {
-        Archivo archivo = new Archivo(INPUT_FILE, TipoAperturaArchivo.LECTURA);
+        Archivo archivo = new Archivo(INPUT_FILE_1, TipoAperturaArchivo.LECTURA);
         Aventurero aventurero = new Aventurero();
         archivo.leerDatos(aventurero);
         archivo.cerrar();
@@ -59,12 +63,12 @@ public class ArchivoTest {
 
     @Test
     public void testEscribirOia() throws IOException {
-        Archivo archivo = new Archivo(OUTPUT_FILE, TipoAperturaArchivo.ESCRITURA);
+        Archivo archivo = new Archivo(OUTPUT_FILE_1, TipoAperturaArchivo.ESCRITURA);
         archivo.escribirOia(10, false);
         archivo.cerrar();
 
         // Verifico el contenido del archivo
-        BufferedReader reader = new BufferedReader(new FileReader(OUTPUT_FILE));
+        BufferedReader reader = new BufferedReader(new FileReader(OUTPUT_FILE_1));
         assertEquals("10 ", reader.readLine());
         reader.close();
     }
@@ -73,6 +77,38 @@ public class ArchivoTest {
     public void testEscribirSinAbrir() throws IOException {
         Archivo archivo = new Archivo("error.txt", TipoAperturaArchivo.LECTURA);
         archivo.escribirOia(10, false); // Esto debería lanzar IOException
+        archivo.cerrar();
+    }
+
+    @Test(expected = AventureroExcepcion.class)
+    public void testValidarDatosException() throws IOException {
+        Archivo archivo = new Archivo(INPUT_FILE_2, TipoAperturaArchivo.LECTURA);
+        Aventurero aventurero = new Aventurero();
+        archivo.leerDatos(aventurero);
+        archivo.cerrar();
+    }
+
+    @Test(expected = AventureroExcepcion.class)
+    public void testValidarDatosPasadaCantOiasIncorrectaException() throws IOException {
+        Archivo archivo = new Archivo(INPUT_FILE_3, TipoAperturaArchivo.LECTURA);
+        Aventurero aventurero = new Aventurero();
+        archivo.leerDatos(aventurero);
+        archivo.cerrar();
+    }
+
+    @Test(expected = AventureroExcepcion.class)
+    public void testLeerDatosSinCantOiasException() throws IOException {
+        Archivo archivo = new Archivo(INPUT_FILE_4, TipoAperturaArchivo.LECTURA);
+        Aventurero aventurero = new Aventurero();
+        archivo.leerDatos(aventurero);
+        archivo.cerrar();
+    }
+
+    @Test(expected = AventureroExcepcion.class)
+    public void testLeerDatosPrimerEnteroGiganteException() throws IOException {
+        Archivo archivo = new Archivo(INPUT_FILE_5, TipoAperturaArchivo.LECTURA);
+        Aventurero aventurero = new Aventurero();
+        archivo.leerDatos(aventurero);
         archivo.cerrar();
     }
 }

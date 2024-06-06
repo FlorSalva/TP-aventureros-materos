@@ -24,7 +24,7 @@ public class MainTest {
     @Test
     public void testMain() throws Exception {
         // Ejecuto el método main
-        Main.main(new String[]{});
+        Main.main(new String[]{""});
 
         // Verifico los resultados de salida
         BufferedReader reader = new BufferedReader(new FileReader(OUTPUT_FILE));

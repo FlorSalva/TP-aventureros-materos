@@ -24,7 +24,7 @@ public class Main {
 
         Archivo arch_out = new Archivo("./resources/aventureros.out", TipoAperturaArchivo.ESCRITURA);
 
-        aventurero.identificadorCebador(arch_out);
+        aventurero.identificarCebador(arch_out);
         arch_out.cerrar();
     }
 }

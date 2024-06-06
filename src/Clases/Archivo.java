@@ -82,11 +82,11 @@ public class Archivo {
         try {
             tokenizer = new StringTokenizer(reader.readLine());
         } catch (Exception e) {
-            throw new AventureroExcepcion("La cantidad de pasadas es requerida, se interrumpe la ejecución.");
+            throw new AventureroExcepcion("La cantidad de pasadas es requerida.");
         }
 
         if(n != tokenizer.countTokens()) {
-            throw new AventureroExcepcion("La cantidad de pasadas debe ser un elemento menos de la cantidad de OIAs, se interrumpe la ejecucion.");
+            throw new AventureroExcepcion("La cantidad de pasadas debe ser un elemento menos de la cantidad de OIAs.");
         }
     }
 

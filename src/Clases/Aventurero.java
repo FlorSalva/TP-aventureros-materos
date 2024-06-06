@@ -39,7 +39,7 @@ public class Aventurero {
         return listaOias;
     }
 
-    public void identificadorCebador(Archivo arch) throws IOException{
+    public void identificarCebador(Archivo arch) throws IOException{
             int position = 0,
                 removed;
             for (int i = 0; i < cantidadOias - 1; i++) {

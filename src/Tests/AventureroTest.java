@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 public class AventureroTest {
     private static final String TEST_DIR = "./resources/test/";
-    private static final String OUTPUT_FILE = TEST_DIR + "aventureros_test.out";
+    private static final String OUTPUT_FILE = TEST_DIR + "aventureros_test_1.out";
 
     @Test
     public void testSetAndGetCantidadOias() {
@@ -38,14 +38,14 @@ public class AventureroTest {
     }
 
     @Test
-    public void testIdentificadorCebador() throws IOException {
+    public void testIdentificarCebadorOk() throws IOException {
         Aventurero aventurero = new Aventurero();
         aventurero.setCantidadOias(5);
         aventurero.setPasadas(new int[]{1, 2, 3, 4});
         aventurero.crearRondaOias();
 
         Archivo archivo = new Archivo(OUTPUT_FILE, TipoAperturaArchivo.ESCRITURA);
-        aventurero.identificadorCebador(archivo);
+        aventurero.identificarCebador(archivo);
         archivo.cerrar();
 
         // Verifico el contenido del archivo de salida
