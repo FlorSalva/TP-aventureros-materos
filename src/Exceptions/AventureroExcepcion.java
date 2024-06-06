@@ -1,4 +1,4 @@
-package Excepciones;
+package Exceptions;
 
 public class AventureroExcepcion extends RuntimeException {
     private String mensaje;

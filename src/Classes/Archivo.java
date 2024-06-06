@@ -1,6 +1,6 @@
-package Clases;
+package Classes;
 
-import Excepciones.AventureroExcepcion;
+import Exceptions.AventureroExcepcion;
 
 import java.io.*;
 import java.util.StringTokenizer;

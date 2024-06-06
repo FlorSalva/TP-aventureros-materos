@@ -2,10 +2,10 @@ package Tests;
 
 import static org.junit.Assert.*;
 
-import Clases.Archivo;
-import Clases.Aventurero;
-import Clases.TipoAperturaArchivo;
-import Excepciones.AventureroExcepcion;
+import Classes.Archivo;
+import Classes.Aventurero;
+import Classes.TipoAperturaArchivo;
+import Exceptions.AventureroExcepcion;
 import org.junit.Test;
 
 import java.io.*;
